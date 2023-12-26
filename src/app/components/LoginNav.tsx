@@ -6,9 +6,7 @@ export default function LoginNav() {
     const userId = JSON.parse(localStorage.getItem('login-Status') as string);
     const {setIsLogin} = useContext(LoginContext);
     const router = useRouter()
-    const 객체 = {
-        text : "씨발"
-    }
+
     const logout = (e:MouseEvent<HTMLButtonElement>) => {
         setIsLogin(false);
         localStorage.removeItem('login-Status');

@@ -16,15 +16,15 @@ interface Props {
 export default function CommentWrite({setCommentModal, webtoonId, method} : Props) {
   const [comment, setComment] = useState<{[key : string] : string}>({comment : ''})
   const {isChange, setIsChange} = useContext(CommentContext);
-  const access_token = JSON.parse(localStorage.getItem('login-Status') as string)
+  const loginStatus = JSON.parse(localStorage.getItem('login-Status') as string)
 
   async function commentSubmit(e:MouseEvent<HTMLButtonElement>){
     e.preventDefault();
-    const response = await fetch(`http://localhost:9001/api/v1/comment/${method.url}/${webtoonId}`,{
+    const response = await fetch(`${SERVER_URL}/comment/${method.url}/${webtoonId}`,{
                         method : `${method.method}`,
                         headers : {
                           "Content-Type" : 'application/json',
-                          Authorization : access_token["accessToken"],
+                          Authorization : loginStatus["accessToken"],
                         },
                         body : JSON.stringify(comment)
                     })

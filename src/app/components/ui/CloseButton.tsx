@@ -3,6 +3,6 @@ import {AiOutlineCloseSquare} from 'react-icons/ai'
 
 export default function CloseButton({isComment = false} : {isComment? : boolean}) {
   return (
-    <AiOutlineCloseSquare className = {`${!isComment && 'absolute'} bg-white`}/>
+    <AiOutlineCloseSquare className = {`${!isComment && 'absolute'} bg-white hover:bg-sky-300`}/>
   )
 }

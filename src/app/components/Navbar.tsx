@@ -25,10 +25,10 @@ export default function Navbar() {
   return (
     <div className = "flex flex-row p-3 justify-between items-center">
             <Navigate href= "/" disabled={path==='/' && true}>
-              <h1 className = "text-3xl font-bold text-slate-600 ml-4"> Webtoon </h1>
+              <h1 className = "text-3xl font-bold text-white ml-4"> Webtoon </h1>
             </Navigate>        
-        <nav className = "flex flex-row gap-4 mr-4  text-slate-600">
-            <button onClick = {getTest} className = 'p-4 text-red-700'>눌러보소</button>
+        <nav className = "flex flex-row gap-4 mr-4  text-white">
+            {/* <button onClick = {getTest} className = 'p-4 text-red-700'>눌러보소</button> */}
             <Navigate href= "/search" disabled={path==='/search' && true}>
               <SearchIcon></SearchIcon>
             </Navigate>

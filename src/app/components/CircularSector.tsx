@@ -93,7 +93,7 @@ export default function CircularSector({sectorNum, thumnails, pageUrl} : Props) 
                                     onMouseOver={(e)=>{mouseOver(e, i)}}
                                     onMouseOut={(e)=>{mouseOut(e, i)}}
                                 >
-                                    <p className = "relative top-[90%] text-right align-text-bottom">{mainCircle[i]}</p>
+                                    {/* <p className = "relative top-[90%] text-right align-text-bottom">{mainCircle[i]}</p> */}
                                 </div>
                             </Navigate>
                          )

@@ -34,10 +34,10 @@ export default function CommentModal({webtoonId} : Props) {
             (modal && isLogin) &&
             <CommentWrite setCommentModal={modalClose} webtoonId={webtoonId} method={{method : "POST", url : "create"}}></CommentWrite>
           }
-          {
-            (modal || isLogin) && 
+          {/* {
+            (!modal || !isLogin) && 
             <LoginAlert onClose={modalClose}></LoginAlert>
-          }
+          } */}
         </ModalPortal>
     </div>
   )

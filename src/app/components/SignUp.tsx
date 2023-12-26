@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import React, { ButtonHTMLAttributes, ChangeEvent, useState, MouseEvent,FocusEvent, useRef } from 'react'
+import { SERVER_URL } from '../models/globalVar';
 
 const date = new Date()
 const year = date.getFullYear();
@@ -8,9 +9,12 @@ const inputStyle = 'w-[70%] py-2 pl-3 rounded-md mb-5 text-black'
 const buttonStyle = 'w-[100px] p-2 mt-10 m-auto border-[0.05rem] border-sky-200 rounded-lg'
 const checkWarnStyle = 'text-red-700 bg-none pb-5 opacity-0 font-bold'
 const format = {
-    id : /^[a-z]+[a-z0-9]{5,16}$/,                                  // 아이디는 첫글자가 소문자 영어이며 소문자,영어를 섞은 5~16 글자
-    password : /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/,         // 비밀번호는 영어,숫자를 무조건 조합해야하며 소문자,대문자,숫자 조합의 6~16 글자
-    nickname : /^[가-힣a-zA-Z0-9]{2,12}$/,                           // 닉네임은 한글, 영어, 숫자를 조합한 2~12 글자
+    // 아이디는 첫글자가 소문자 영어이며 소문자,영어를 섞은 5~16 글자
+    id : /^[a-z]+[a-z0-9]{5,16}$/,  
+    // 비밀번호는 영어,숫자를 무조건 조합해야하며 소문자,대문자,숫자 조합의 6~16 글자
+    password : /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/,         
+    // 닉네임은 한글, 영어, 숫자를 조합한 2~12 글자
+    nickname : /^[가-힣a-zA-Z0-9]{2,12}$/,                           
 }
 
 export default function SignUp() {
@@ -62,7 +66,7 @@ export default function SignUp() {
 
     async function handleIdCheck(e:FocusEvent<HTMLInputElement>){
         console.log("포커스 아웃!!!!!!!!")
-        const res = await fetch(`http://localhost:9001/api/v1/user/check-id?userId=${userInfo.userId}`)
+        const res = await fetch(`${SERVER_URL}/user/check-id?userId=${userInfo.userId}`)
         if(res.ok === true && format.id.test(userInfo.userId)){
             (checkId.current as HTMLDivElement).style.setProperty('opacity','0')
             setAllCheck((prevState)=>{ return {...prevState, userId : true}})
@@ -73,7 +77,7 @@ export default function SignUp() {
         }
     }
     async function handleNickNameCheck(){
-        const res = await fetch(`http://localhost:9001/api/v1/user/check-nickname?nickName=${userInfo.nickName}`)
+        const res = await fetch(`${SERVER_URL}/user/check-nickname?nickName=${userInfo.nickName}`)
         if(res.ok === true && format.nickname.test(userInfo.nickName)){
             (checkNickname.current as HTMLDivElement).style.setProperty('opacity','0')
             setAllCheck((prevState)=>{ return {...prevState, nickName : true}})
@@ -106,18 +110,16 @@ export default function SignUp() {
     } 
 
     const infoSubmit = (e :  MouseEvent<HTMLInputElement>) => {
-        console.log(" 객체 @@@@", JSON.stringify(userInfo));
         if(infoAllCheck()){
             (
                 async()=>{
-                    await fetch('http://localhost:9001/api/v1/user/join',{
+                    await fetch(`${SERVER_URL}/user/join`,{
                         method : 'POST',
                         headers : {
                             "Content-Type" : 'application/json',
                         },
                         body : JSON.stringify(userInfo),
                     })
-                    // .then(res => console.log("응답번호 : ",res))
                 }
             )()
             router.push('/');

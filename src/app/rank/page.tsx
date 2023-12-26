@@ -1,12 +1,10 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { getAllWebtoonInfo, getWebtoonRank } from '../service/webtoonInfo'
-import Card from '../components/Card';
 import WebtoonList from '../components/WebtoonList';
-import WebtoonListContextProvider, { WebtoonListContext } from '../context/WebtoonListContext';
 import { WebtoonListPage } from '../models/webtoonType';
 import { useSearchParams } from 'next/navigation';
+import { SERVER_URL } from '../models/globalVar';
 
 export default function RankPage() {
   const [webtoonList, setWebtoonList] = useState<WebtoonListPage>();
@@ -17,7 +15,7 @@ export default function RankPage() {
   useEffect(()=>{
     if(search === null){
     ( async()=>{
-      await fetch(`http://localhost:9001/api/v1/webtoon/list?&page=0`, 
+      await fetch(`${SERVER_URL}/webtoon/list?&page=0`, 
                   {method : "GET"}
       )
       .then(res=>res.json())
@@ -29,7 +27,7 @@ export default function RankPage() {
   useEffect(()=>{
     if(Number(search) > 0){
       ( async()=>{
-        await fetch(`http://localhost:9001/api/v1/webtoon/list?&page=${search}`, 
+        await fetch(`${SERVER_URL}/webtoon/list?&page=${search}`, 
                     {method : "GET"}
         )
         .then(res=>res.json())
@@ -45,12 +43,10 @@ export default function RankPage() {
 
   return (
     <>
-    {/* // <WebtoonListContextProvider firstList= 'http://localhost:9001/api/v1/webtoon/list?page=0'> */}
       {
         (webtoonList)  &&
         <WebtoonList webtoonList={webtoonList} isRank={true}></WebtoonList>
       }
-    {/* // </WebtoonListContextProvider> */}
     </>
   )
 }

@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
         <body className={inter.className}>
-          {/* <InitTransition/> */}
+          <InitTransition/>
           {/* <Background backgroundImage={backgroundImage}></Background> */}
           <NavigationContextProvider>
             <LoginContextProvider>

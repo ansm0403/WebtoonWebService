@@ -2,6 +2,7 @@
 import React, { MouseEvent, ChangeEvent, FormEvent, useState, useContext } from 'react'
 import CloseButton from './ui/CloseButton';
 import { LoginContext } from '../context/LoginContextProvider';
+import { SERVER_URL } from '../models/globalVar';
 
 type Props = {
     onClose : ()=>void
@@ -17,6 +18,7 @@ export default function SignIn({onClose} : Props) {
         password : "",
     })
     const {setIsLogin} = useContext(LoginContext);
+   
     const handleUserId = (e : ChangeEvent<HTMLInputElement>) => {
         setLoginInfo((prevState)=>{
             return {...prevState, userId : e.target.value};
@@ -29,10 +31,9 @@ export default function SignIn({onClose} : Props) {
     }
 
     async function logIn(e : MouseEvent<HTMLInputElement>){
-        console.log("데이터 맞냐?", JSON.stringify(loginInfo));
         (
             async()=>{
-                await fetch('http://localhost:9001/api/v1/user/login',{
+                await fetch(`${SERVER_URL}/user/login`,{
                     method : 'POST',
                     headers : {
                         "Content-Type" : 'application/json',
@@ -41,7 +42,6 @@ export default function SignIn({onClose} : Props) {
                 })
                 .then(res => res.json())
                 .then(res => {
-                    console.log("객체는??", res)
                     if(res){
                         localStorage.setItem('login-Status', JSON.stringify({
                             userId : res.userId,
@@ -51,6 +51,7 @@ export default function SignIn({onClose} : Props) {
                         onClose();
                     }
                 })
+                .catch(error => console.log(error.message))
             }
         )()
     }
