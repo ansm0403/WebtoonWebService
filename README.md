@@ -13,10 +13,10 @@
 * 김원찬 : 웹 크롤링
 
 
-# Stacks 
+# 기술 스택
 
 
-# Enviroment
+# 개발 환경
 
 # Config
 
